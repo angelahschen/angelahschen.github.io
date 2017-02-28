@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<title>Databricks </title>
+
+
+<style type="text/css">
+body {
+  font-family: sans-serif;
+  font-size: 15px;
+  line-height: 1.6;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  background-color: white;
+  padding: 30px; }
+
+body > *:first-child {
+  margin-top: 0 !important; }
+body > *:last-child {
+  margin-bottom: 0 !important; }
+
+p, blockquote, ul, ol, dl, li, table, pre {
+  margin: 14px 0; }
+
+img {
+  max-width: 100%; }
+
+code, tt {
+  margin: 0 2px;
+  padding: 0 5px;
+  white-space: nowrap;
+  border: 1px solid #eaeaea;
+  background-color: #f8f8f8;
+  border-radius: 3px; }
+
+pre code {
+  margin: 0;
+  padding: 0;
+  white-space: pre;
+  border: none;
+  background: transparent; }
+
+.highlight pre {
+  background-color: #f8f8f8;
+  border: 1px solid #cccccc;
+  font-size: 13px;
+  line-height: 19px;
+  overflow: auto;
+  padding: 6px 10px;
+  border-radius: 3px; }
+
+pre {
+  background-color: #f8f8f8;
+  border: 1px solid #cccccc;
+  font-size: 13px;
+  line-height: 19px;
+  overflow: auto;
+  padding: 6px 10px;
+  border-radius: 3px; }
+  pre code, pre tt {
+    background-color: transparent;
+    border: none; }
+
+sup {
+    font-size: 0.83em;
+    vertical-align: super;
+    line-height: 0;
+}
+
+kbd {
+  display: inline-block;
+  padding: 3px 5px;
+  font-size: 11px;
+  line-height: 10px;
+  color: #555;
+  vertical-align: middle;
+  background-color: #fcfcfc;
+  border: solid 1px #ccc;
+  border-bottom-color: #bbb;
+  border-radius: 3px;
+  box-shadow: inset 0 -1px 0 #bbb
+}
+
+* {
+	-webkit-print-color-adjust: exact;
+}
+@media screen and (min-width: 914px) {
+    body {
+        width: 854px;
+        margin:0 auto;
+    }
+}
+@media print {
+	table, pre {
+		page-break-inside: avoid;
+	}
+	pre {
+		word-wrap: break-word;
+	}
+}
+</style>
+
+
+
+</head>
+
+<body>
+
+<h1 id="toc_0">Tool Demo: Databricks</h1>
+
+<p>Angela Chen</p>
+
+<h3 id="toc_1">Introduction</h3>
+
+<p>Databricks is a managed platform for running Apache Spark, it 
+provides UI for easier debugging on Spark. Databricks also provides a host of features 
+ to help its users be more productive with Spark. It's a point and click platform for those that prefer
+ a user interface like data scientists or data analysts.</p>
+
+<h3 id="toc_2">Getting Started</h3>
+
+<p>Databricks can be found <a href="https://databricks.com/">here</a>. Databricks provide a full-platform 
+version and a community edition. We will be using the community edition in this demo.</p>
+
+<h3 id="toc_3">Using Databricks</h3>
+
+<p>1. Databricks Mainpage</p>
+<p>After getting Databricks, we can see from Databricks' mainpage the features it offered.
+The most important ones are 'cluster', 'workspace', 'notebook', and 'tables'.</p>
+
+<p><img src="./images/01_databrick_main.png" alt="Alt" style="width: 25%; height: 25%"></p>
+
+<p>2. Cluster</p>
+
+<p>Before we can run any codes, we need to set up a cluster.
+The cluster list page includes information about clusters that are currently running and those that
+ have recently terminated. The Spark UI is available for both active and terminated clusters so that even 
+ if a cluster terminates, you can still debug the job that was running by viewing the Spark UI. </p>
+
+<p><img src="./images/02_cluster.png" alt="Alt" ></p>
+<p><img src="./images/03_createcluster.png" alt="Alt" style="width: 25%; height: 25%"></p>
+
+<p>3. Load Tables</p>
+
+<p>Tables are a simple way to make structured data available across your organization.
+To load table into Databricks, click the 'Table' option in the left sidebar.
+Tables support a variety of Apache Spark data sources. For example: Amazon S3 with Apache Spark,
+Databricks File System - DBFS, a user-uploaded file.</p>
+
+<p>In our demo, we upload a file called 'objects.txt' for the wordcount example we will use later.</p>
+
+<p>objects.txt</p> 
+<div><pre><code class="language-javascript">
+pencil lamp violin lamp violin violin
+pen lamp violin lamp lamp glass xylophone
+glass lamp violin laptop glass guitar violin
+glass violin guitar glass laptop pen xylophone
+violin lamp cellphone laptop glass laptop violin pencil guitar
+violin xylophone pencil cellphone
+glass violin laptop cellphone glass guitar
+glass glass violin guitar pen laptop
+lamp glass laptop violin cellphone
+glass violin guitar pen xylophone pen
+violin lamp cellphone laptop violin pencil guitar
+violin lamp cellphone laptop glass lamp violin
+</code></pre></div>
+
+<p><img src="./images/04_importdata.png" alt="Alt" style="width: 25%; height: 25%"></p>
+
+<p>Copy down the place where the table is stored. Here, it's "/FileStore/tables/c1t69zum1488268788545/objects.txt"</p>
+
+<p>4. Run spark in notebook in workspace</p>
+<p>The Workspace is the special root folder for all Databricks. The workspace stores all your notebooks, libraries, and dashboards.</p>
+
+<p>Notebooks are one interface for interacting with Databricks.
+We first need to attach our notebook to a cluster, and after that, we're ready to run codes.
+Notebook contains a series of codes or commands, each command can be run independently of other commands.
+There are 3 types of notebook: python, java, sql.
+To execute the command, type the script below and press Shift+Enter to execute it.</p>
+
+<p><img src="./images/05_create_notebook.png" alt="Alt"></p>
+
+
+<p>5. Now we create a scala notebook called wordcount.scala</p>
+<p>Code: </p> 
+<div><pre><code class="language-javascript">
+val file = sc.textFile("/FileStore/tables/c1t69zum1488268788545/objects.txt")
+val fm = file.flatMap(line => line.trim().split(" "))
+val pair = fm.map{word =>
+	if(word.contains("cell")){
+    Thread.sleep(400* (word.length))
+  }
+(word, 1)}
+val counts = pair.reduceByKey(_ + _)
+val total = counts.collect()
+total.foreach(println)
+</code></pre></div>
+
+<p>We use 'shift+enter' to run the code. After running it, we can view the progress bar,events timeline, and DAG</p>
+
+<p><img src="./images/07_first_run.png" alt="Alt"></p>
+<p><img src="./images/08_visual.png" alt="Alt" style="width: 25%; height: 25%"></p>
+<p><img src="./images/10_event_specifics.png" alt="Alt" style="width: 25%; height: 25%"></p>
+<p><img src="./images/09_dag.png" alt="Alt" style="width: 25%; height: 25%"></p>
+
+
+<p>6. Debugging with Databricks</p>
+
+<p>To see an example of debugging with Databricks, we create another notebook, wordcount_b.scala.
+This program is like the previous wordcount, but contains some data-dependent crashes.
+When a word in the file contains the string 'xy', it throws a null pointer exception</p>
+<p>Code: </p> 
+<div><pre><code class="language-javascript">
+val file = sc.textFile("/FileStore/tables/c1t69zum1488268788545/objects.txt")
+val fm = file.flatMap(line => line.trim().split(" "))
+val pair = fm.map{word =>
+  if(word.contains("cell")){
+    Thread.sleep(400* (word.length))
+  }
+  if(word.contains("xy")){
+    val str = null
+    str.toString
+  }
+  (word, 1)}
+val counts = pair.reduceByKey(_ + _)
+val total = counts.collect()
+total.foreach(println)
+</code></pre></div>
+
+<p><img src="./images/11_bug_visual.png" alt="Alt" style="width: 25%; height: 25%"></p>
+<p><img src="./images/12_timeline_fail.png" alt="Alt" style="width: 25%; height: 25%"></p>
+<p><img src="./images/13_event_specific.png" alt="Alt" style="width: 20%; height: 20%"></p>
+
+
+<h4 id="toc_12">Reference</h4>
+<ol>
+<li>https://databricks.com/blog/2016/10/18/7-tips-to-debug-apache-spark-code-faster-with-databricks.html</li>
+</ol>
+
+
+
+
+
+
+
+</body></html>
